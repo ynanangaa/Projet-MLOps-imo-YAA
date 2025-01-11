@@ -33,4 +33,4 @@ def predict(input_data: CaliforniaHousingInput):
     prediction = model.predict(features)
     # Arrondir la prédiction à 3 chiffres après la virgule
     rounded_prediction = round(prediction[0], 3)
-    return {"prediction": rounded_prediction)}
+    return {"prediction": rounded_prediction}
