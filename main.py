@@ -17,7 +17,7 @@ class CaliforniaHousingInput(BaseModel):
     avg_rooms: float
     avg_bedrooms: float
     population: float
-    avg_occupation: float
+    avg_occupancy: float
     latitude: float
     longitude: float
 
@@ -27,10 +27,8 @@ def predict(input_data: CaliforniaHousingInput):
     # Transformer les données en tableau numpy
     features = np.array([[input_data.median_income, input_data.house_age,
                            input_data.avg_rooms, input_data.avg_bedrooms,
-			   input_data.population, input_data.avg_occupation,
+			   input_data.population, input_data.avg_occupancy,
 			   input_data.latitude, input_data.longitude]])
     # Faire une prédiction
     prediction = model.predict(features)
-    # Arrondir la prédiction à 3 chiffres après la virgule
-    rounded_prediction = round(prediction[0], 3)
-    return {"prediction": rounded_prediction}
+    return {"prediction": prediction}
