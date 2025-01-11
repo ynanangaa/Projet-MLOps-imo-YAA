@@ -11,7 +11,7 @@ max_depth = 5
 # Suivi de l'expérience
 with mlflow.start_run():
     rf_reg = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=42)
-	rf_reg.fit(X_train, y_train)
+    rf_reg.fit(X_train, y_train)
 
     # Enregistrer les métriques et hyperparamètres
 	y_train_pred = rf_reg.predict(X_train)
