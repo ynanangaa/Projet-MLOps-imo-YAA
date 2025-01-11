@@ -7,7 +7,7 @@ from split_train_test import X_train, X_test, y_train, y_test
 # Définir les hyperparamètres
 n_estimators = 100
 max_depth = 5
-learning_rate = 0.1
+learning_rate = 0.3
 
 # Suivi de l'expérience
 with mlflow.start_run():
