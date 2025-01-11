@@ -5,6 +5,7 @@ from sklearn.metrics import root_mean_squared_error, mean_absolute_error
 from split_train_test import X_train, X_test, y_train, y_test
 
 # Suivi de l'expérience
+mlflow.set_experiment("base_model")
 with mlflow.start_run():
     reg = LinearRegression().fit(X_train, y_train)
 

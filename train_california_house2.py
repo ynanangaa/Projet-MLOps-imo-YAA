@@ -9,6 +9,7 @@ n_estimators = 100
 max_depth = 5
 
 # Suivi de l'expérience
+mlflow.set_experiment("random_forest_model")
 with mlflow.start_run():
     rf_reg = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=42)
     rf_reg.fit(X_train, y_train)
