@@ -10,6 +10,7 @@ max_depth = 5
 learning_rate = 0.3
 
 # Suivi de l'expérience
+mlflow.set_experiment("gradient_boosting_model")
 with mlflow.start_run():
     gb_reg = GradientBoostingRegressor(n_estimators=n_estimators, max_depth=max_depth, learning_rate=learning_rate, random_state=42)
     gb_reg.fit(X_train, y_train)
