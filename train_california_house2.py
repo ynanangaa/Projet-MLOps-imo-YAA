@@ -14,8 +14,8 @@ with mlflow.start_run():
     rf_reg.fit(X_train, y_train)
 
     # Enregistrer les métriques et hyperparamètres
-	y_train_pred = rf_reg.predict(X_train)
-	r_squared = r2_score(y_train, y_train_pred)
+    y_train_pred = rf_reg.predict(X_train)
+    r_squared = r2_score(y_train, y_train_pred)
     mlflow.log_param("n_estimators", n_estimators)
     mlflow.log_param("max_depth", max_depth)
     y_pred = rf_reg.predict(X_test)
