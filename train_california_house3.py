@@ -20,7 +20,7 @@ with mlflow.start_run():
     mlflow.log_param("n_estimators", n_estimators)
     mlflow.log_param("max_depth", max_depth)
     mlflow.log_param("learning_rate", learning_rate)
-    y_pred = rf_reg.predict(X_test)
+    y_pred = gb_reg.predict(X_test)
     rmse = root_mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     mlflow.log_metric("R²",r_squared)
