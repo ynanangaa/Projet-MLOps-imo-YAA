@@ -2,7 +2,7 @@ import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, root_mean_squared_error, mean_absolute_error
-from split_train_test import X_train, X_test, y_train, y_test
+from infrastructure.split_data_train_test import X_train, X_test, y_train, y_test
 
 # Définir les hyperparamètres
 n_estimators = 100
