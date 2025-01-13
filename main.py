@@ -4,7 +4,7 @@ import mlflow.pyfunc
 import numpy as np
 
 # Charger le modèle depuis MLflow
-model_uri = "models:/Best_model/1"
+model_uri = "runs:/be707974b47f4b4bae4b615e87d3a168/model"
 model = mlflow.pyfunc.load_model(model_uri)
 
 # Initialiser l'application FastAPI
@@ -31,4 +31,4 @@ def predict(input_data: CaliforniaHousingInput):
 			   input_data.latitude, input_data.longitude]])
     # Faire une prédiction
     prediction = model.predict(features)
-    return {"prediction": prediction}
+    return {"prediction": prediction[0]}
