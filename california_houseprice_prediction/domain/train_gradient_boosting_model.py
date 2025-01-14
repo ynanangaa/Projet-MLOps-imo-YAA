@@ -3,9 +3,8 @@ import mlflow.sklearn
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import r2_score, root_mean_squared_error
 from sklearn.metrics import mean_absolute_error
-from california_houseprice_prediction.infrastructure.split_data_train_test import (
-    load_and_split_data,
-)
+import california_houseprice_prediction.infrastructure as infrastructure
+from infrastructure.split_data_train_test import load_and_split_data
 
 
 def train_and_log_gradient_boosting_model(
