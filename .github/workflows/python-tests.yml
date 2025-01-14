@@ -34,7 +34,7 @@ jobs:
         run: poetry run pytest tests/
 
       - name: Run Flake8
-        run: poetry run flake8 california_houseprice_prediction/
+        run: poetry run flake8 Projet-MLOps-imo-YAA/
 
       - name: Run main script
         run: poetry run python run.py
