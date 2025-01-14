@@ -8,7 +8,7 @@ from california_houseprice_prediction.infrastructure.split_data_train_test \
 
 
 def train_and_log_gradient_boosting_model(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, \
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5,
         learning_rate=0.3
 ):
     """
