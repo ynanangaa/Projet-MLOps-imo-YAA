@@ -33,4 +33,4 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = load_and_split_data()
     
     # Entraîner et logger le modèle
-    train_and_log_model(X_train, X_test, y_train, y_test)
+    train_and_log_base_model(X_train, X_test, y_train, y_test)
