@@ -2,9 +2,14 @@ import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import r2_score, root_mean_squared_error, mean_absolute_error
-from california_houseprice_prediction.infrastructure.split_data_train_test import load_and_split_data
+from california_houseprice_prediction.infrastructure.split_data_train_test import (
+    load_and_split_data,
+)
 
-def train_and_log_gradient_boosting_model(X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, learning_rate=0.3):
+
+def train_and_log_gradient_boosting_model(
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, learning_rate=0.3
+):
     """
     Entraîne un modèle de Gradient Boosting et enregistre les métriques et le modèle avec MLflow.
 
@@ -21,7 +26,7 @@ def train_and_log_gradient_boosting_model(X_train, X_test, y_train, y_test, n_es
             n_estimators=n_estimators,
             max_depth=max_depth,
             learning_rate=learning_rate,
-            random_state=42
+            random_state=42,
         )
         gb_reg.fit(X_train, y_train)
 
@@ -44,6 +49,7 @@ def train_and_log_gradient_boosting_model(X_train, X_test, y_train, y_test, n_es
         # Enregistrer le modèle
         mlflow.sklearn.log_model(gb_reg, "model")
         print("Modèle Gradient Boosting entraîné et enregistré avec succès.")
+
 
 if __name__ == "__main__":
     # Charger et diviser les données

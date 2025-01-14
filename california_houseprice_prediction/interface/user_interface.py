@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title('House Price Prediction')
+st.title("House Price Prediction")
 
 with st.form("house_price_form"):
     st.write("Enter housing features:")
@@ -20,14 +20,14 @@ with st.form("house_price_form"):
     if submitted:
         # Collect input data
         input_data = {
-            'median_income': median_income,
-            'house_age': house_age,
-            'avg_rooms': avg_rooms,
-            'avg_bedrooms': avg_bedrooms,
-            'population': population,
-            'avg_occupancy': avg_occupancy,
-            'latitude': latitude,
-            'longitude': longitude
+            "median_income": median_income,
+            "house_age": house_age,
+            "avg_rooms": avg_rooms,
+            "avg_bedrooms": avg_bedrooms,
+            "population": population,
+            "avg_occupancy": avg_occupancy,
+            "latitude": latitude,
+            "longitude": longitude,
         }
 
         # Make API call to the prediction endpoint
@@ -35,7 +35,7 @@ with st.form("house_price_form"):
         response = requests.post(api_url, json=input_data)
 
         if response.status_code == 200:
-            prediction = response.json()['prediction']
-            st.success(f'The predicted house price is: ${prediction:.3f}')
+            prediction = response.json()["prediction"]
+            st.success(f"The predicted house price is: ${prediction:.3f}")
         else:
-            st.error('Failed to get prediction from API')
+            st.error("Failed to get prediction from API")
