@@ -1,11 +1,13 @@
 # run.py
-from california_houseprice_prediction.infrastructure.split_data_train_test \
-    import (load_and_split_data,)
+from california_houseprice_prediction.infrastructure.split_data_train_test import (
+    load_and_split_data,
+)
 from california_houseprice_prediction.domain.train_base_model import (
     train_and_log_base_model as train_linear_regression,
 )
-from california_houseprice_prediction.domain.train_gradient_boosting_model \
-    import (train_and_log_gradient_boosting_model as train_gradient_boosting,)
+from california_houseprice_prediction.domain.train_gradient_boosting_model import (
+    train_and_log_gradient_boosting_model as train_gradient_boosting,
+)
 from california_houseprice_prediction.domain.train_random_forest_model import (
     train_and_log_random_forest_model as train_random_forest,
 )
