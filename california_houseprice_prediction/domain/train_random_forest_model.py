@@ -1,17 +1,18 @@
 import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import r2_score, root_mean_squared_error, mean_absolute_error
-from california_houseprice_prediction.infrastructure.split_data_train_test import (
-    load_and_split_data,
-)
+from sklearn.metrics import r2_score, root_mean_squared_error
+from sklearn.metrics import mean_absolute_error
+from california_houseprice_prediction.infrastructure.split_data_train_test \
+    import (load_and_split_data,)
 
 
 def train_and_log_random_forest_model(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=None
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5
 ):
     """
-    Entraîne un modèle de Random Forest et enregistre les métriques et le modèle avec MLflow.
+    Entraîne un modèle de Random Forest et enregistre les métriques et le \
+        modèle avec MLflow.
 
     Args:
         X_train, X_test, y_train, y_test: Données d'entraînement et de test.
