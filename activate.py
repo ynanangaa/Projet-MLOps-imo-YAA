@@ -14,16 +14,16 @@ def main():
         )
     except FileNotFoundError:
         print(
-            "Poetry n'est pas installé. Veuillez installer Poetry avant de " +
-            "continuer."
+            "Poetry n'est pas installé. Veuillez installer Poetry avant de "
+            + "continuer."
         )
         sys.exit(1)
 
     # Vérifier si le fichier pyproject.toml existe
     if not os.path.exists("pyproject.toml"):
         print(
-            "Le fichier pyproject.toml est introuvable. Êtes-vous dans le " +
-            "répertoire racine du projet ?"
+            "Le fichier pyproject.toml est introuvable. Êtes-vous dans le "
+            + "répertoire racine du projet ?"
         )
         sys.exit(1)
 

@@ -3,13 +3,13 @@ import mlflow.sklearn
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import r2_score, root_mean_squared_error
 from sklearn.metrics import mean_absolute_error
-from california_houseprice_prediction.infrastructure.split_data_train_test \
-    import (load_and_split_data,)
+from california_houseprice_prediction.infrastructure.split_data_train_test import (
+    load_and_split_data,
+)
 
 
 def train_and_log_gradient_boosting_model(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5,
-        learning_rate=0.3
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, learning_rate=0.3
 ):
     """
     Entraîne un modèle de Gradient Boosting et enregistre les métriques et le \
