@@ -1,7 +1,7 @@
 import pytest
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
-from california_houseprice_prediction.domain.train_base_model import train_and_log_model
+from california_houseprice_prediction.domain.train_base_model import train_and_log_base_model
 
 def test_train_and_log_base_model():
     # Charger des données factices pour le test
