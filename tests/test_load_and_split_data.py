@@ -1,6 +1,5 @@
 import pytest
-import california_houseprice_prediction.infrastructure as infrastructure
-from infrastructure.split_data_train_test import load_and_split_data
+from california_houseprice_prediction.infrastructure import load_and_split_data
 
 
 def test_load_and_split_data():

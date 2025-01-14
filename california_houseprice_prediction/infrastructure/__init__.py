@@ -1,1 +1,1 @@
-# Fichier __init__.py
+from .split_data_train_test import load_and_split_data
