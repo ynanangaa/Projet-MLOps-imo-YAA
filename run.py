@@ -1,8 +1,17 @@
 # run.py
-from california_houseprice_prediction.infrastructure.split_data_train_test import load_and_split_data
-from california_houseprice_prediction.domain.train_base_model import train_and_log_base_model as train_linear_regression
-from california_houseprice_prediction.domain.train_gradient_boosting_model import train_and_log_gradient_boosting_model as train_gradient_boosting
-from california_houseprice_prediction.domain.train_random_forest_model import train_and_log_random_forest_model as train_random_forest
+from california_houseprice_prediction.infrastructure.split_data_train_test import (
+    load_and_split_data,
+)
+from california_houseprice_prediction.domain.train_base_model import (
+    train_and_log_base_model as train_linear_regression,
+)
+from california_houseprice_prediction.domain.train_gradient_boosting_model import (
+    train_and_log_gradient_boosting_model as train_gradient_boosting,
+)
+from california_houseprice_prediction.domain.train_random_forest_model import (
+    train_and_log_random_forest_model as train_random_forest,
+)
+
 
 def main():
     # Charger et diviser les données une seule fois
@@ -22,6 +31,7 @@ def main():
     train_random_forest(X_train, X_test, y_train, y_test)
 
     print("\nTous les modèles ont été entraînés et enregistrés avec succès !")
+
 
 if __name__ == "__main__":
     main()

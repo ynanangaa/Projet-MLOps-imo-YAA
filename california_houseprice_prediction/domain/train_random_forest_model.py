@@ -2,9 +2,14 @@ import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, root_mean_squared_error, mean_absolute_error
-from california_houseprice_prediction.infrastructure.split_data_train_test import load_and_split_data
+from california_houseprice_prediction.infrastructure.split_data_train_test import (
+    load_and_split_data,
+)
 
-def train_and_log_random_forest_model(X_train, X_test, y_train, y_test, n_estimators=100, max_depth=None):
+
+def train_and_log_random_forest_model(
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=None
+):
     """
     Entraîne un modèle de Random Forest et enregistre les métriques et le modèle avec MLflow.
 
@@ -17,9 +22,7 @@ def train_and_log_random_forest_model(X_train, X_test, y_train, y_test, n_estima
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         rf_reg = RandomForestRegressor(
-            n_estimators=n_estimators,
-            max_depth=max_depth,
-            random_state=42
+            n_estimators=n_estimators, max_depth=max_depth, random_state=42
         )
         rf_reg.fit(X_train, y_train)
 
@@ -41,6 +44,7 @@ def train_and_log_random_forest_model(X_train, X_test, y_train, y_test, n_estima
         # Enregistrer le modèle
         mlflow.sklearn.log_model(rf_reg, "model")
         print("Modèle Random Forest entraîné et enregistré avec succès.")
+
 
 if __name__ == "__main__":
     # Charger et diviser les données
