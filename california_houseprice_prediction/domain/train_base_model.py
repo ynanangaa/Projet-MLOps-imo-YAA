@@ -2,9 +2,8 @@ import mlflow
 import mlflow.sklearn
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
-from california_houseprice_prediction.infrastructure.split_data_train_test import (
-    load_and_split_data,
-)
+import california_houseprice_prediction.infrastructure as infrastructure
+from infrastructure.split_data_train_test import load_and_split_data
 
 
 def train_and_log_base_model(X_train, X_test, y_train, y_test):
