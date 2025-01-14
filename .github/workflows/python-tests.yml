@@ -34,7 +34,7 @@ jobs:
         run: poetry run pytest tests/
 
       - name: Format code with Black
-        run: poetry run black ./
+        run: poetry run black --line-length 79 ./
 
       - name: Run Flake8
         run: poetry run flake8 ./
