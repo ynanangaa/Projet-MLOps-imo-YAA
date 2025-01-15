@@ -1,7 +1,7 @@
 import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import root_mean_squared_error
+from sklearn.metrics import r2_score, root_mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from california_houseprice_prediction.infrastructure import load_and_split_data
 
@@ -35,7 +35,7 @@ def train_and_log_random_forest_model(
 
         # Calculer et enregistrer les métriques
         y_train_pred = rf_reg.predict(X_train)
-        r_squared = rf_reg.score(y_train, y_train_pred)
+        r_squared = r2_score(y_train, y_train_pred)
         y_pred = rf_reg.predict(X_test)
         rmse = root_mean_squared_error(y_test, y_pred)
         mae = mean_absolute_error(y_test, y_pred)
