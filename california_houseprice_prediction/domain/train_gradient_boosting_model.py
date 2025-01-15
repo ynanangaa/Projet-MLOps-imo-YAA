@@ -40,7 +40,7 @@ def train_and_log_gradient_boosting_model(
 
         # Calculer et enregistrer les métriques
         y_train_pred = gb_reg.predict(X_train)
-        r_squared = gb_reg.score(y_train, y_train_pred)
+        r_squared = r2_score(y_train, y_train_pred)
         y_pred = gb_reg.predict(X_test)
         rmse = root_mean_squared_error(y_test, y_pred)
         mae = mean_absolute_error(y_test, y_pred)
