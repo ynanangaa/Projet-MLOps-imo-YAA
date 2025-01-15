@@ -7,7 +7,8 @@ from california_houseprice_prediction.infrastructure import load_and_split_data
 
 
 def train_and_log_gradient_boosting_model(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, learning_rate=0.3
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, learning_rate=0.3,
+    max_features=max_features
 ):
     """
     Entraîne un modèle de Gradient Boosting et enregistre les métriques et le \
@@ -25,6 +26,7 @@ def train_and_log_gradient_boosting_model(
         gb_reg = GradientBoostingRegressor(
             n_estimators=n_estimators,
             max_depth=max_depth,
+            max_features=max_features
             learning_rate=learning_rate,
             random_state=42,
         )

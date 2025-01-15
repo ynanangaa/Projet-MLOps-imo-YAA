@@ -7,7 +7,8 @@ from california_houseprice_prediction.infrastructure import load_and_split_data
 
 
 def train_and_log_random_forest_model(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5
+    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5,
+    max_features=None
 ):
     """
     Entraîne un modèle de Random Forest et enregistre les métriques et le \
@@ -22,7 +23,8 @@ def train_and_log_random_forest_model(
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         rf_reg = RandomForestRegressor(
-            n_estimators=n_estimators, max_depth=max_depth, random_state=42
+            n_estimators=n_estimators, max_depth=max_depth, random_state=42,
+            max_features=max_features
         )
         rf_reg.fit(X_train, y_train)
 
