@@ -31,7 +31,7 @@ jobs:
         run: poetry install
 
       - name: Run tests
-        run: poetry run pytest tests/
+        run: poetry run pytest tests/ -v
 
       - name: Format code with Black
         run: poetry run black --line-length 79 ./
