@@ -21,7 +21,7 @@ def main():
 
     # Entraîner et logger le modèle de Gradient Boosting
     print("\nEntraînement du modèle de Gradient Boosting...")
-    for learning_rate in [0.1, 0.2, 0.3, 0.4, 0.5]:
+    for learning_rate in [0.2, 0.3, 0.4]:
         for n_estimators in [100, 120]:
             for max_depth in [3, 5]:
                 for max_features in [3, None]:
@@ -39,7 +39,7 @@ def main():
 
     # Entraîner et logger le modèle de Random Forest
     print("\nEntraînement du modèle de Random Forest...")
-    for max_depth in [5, 7, 10]:
+    for max_depth in [5, 10, None]:
         for max_features in [3, None]:
             for n_estimators in [100, 120]:
                 print(
