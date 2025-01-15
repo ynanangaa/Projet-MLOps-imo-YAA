@@ -26,8 +26,8 @@ def main():
             for max_depth in [3, 5]:
                 for max_features in [3, None]:
                     print(
-                        f"\nGradient Boosting - learning_rate={learning_rate}, "
-                        f"n_estimators={n_estimators}, max_depth={max_depth}"
+                        f"\nGradient Boosting - learning_rate={learning_rate},"
+                        f" n_estimators={n_estimators}, max_depth={max_depth}"
                     )
                     train_gradient_boosting(
                         X_train, X_test, y_train, y_test,
