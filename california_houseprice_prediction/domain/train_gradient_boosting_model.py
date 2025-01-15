@@ -36,10 +36,11 @@ def train_and_log_gradient_boosting_model(
         mlflow.log_param("n_estimators", n_estimators)
         mlflow.log_param("max_depth", max_depth)
         mlflow.log_param("learning_rate", learning_rate)
+        mlflow.log_param("max_features", max_features)
 
         # Calculer et enregistrer les métriques
         y_train_pred = gb_reg.predict(X_train)
-        r_squared = r2_score(y_train, y_train_pred)
+        r_squared = gb_reg.score(y_train, y_train_pred)
         y_pred = gb_reg.predict(X_test)
         rmse = root_mean_squared_error(y_test, y_pred)
         mae = mean_absolute_error(y_test, y_pred)
