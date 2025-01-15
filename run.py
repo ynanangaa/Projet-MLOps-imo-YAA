@@ -24,16 +24,18 @@ def main():
     for learning_rate in [0.1, 0.2, 0.3, 0.4, 0.5]:
         for n_estimators in [100, 120]:
             for max_depth in [3, 5]:
-                print(
-                    f"\nGradient Boosting - learning_rate={learning_rate}, "
-                    f"n_estimators={n_estimators}, max_depth={max_depth}"
-                )
-                train_gradient_boosting(
-                    X_train, X_test, y_train, y_test,
-                    learning_rate=learning_rate,
-                    n_estimators=n_estimators,
-                    max_depth=max_depth
-                )
+                for max_features in [3, None]:
+                    print(
+                        f"\nGradient Boosting - learning_rate={learning_rate}, "
+                        f"n_estimators={n_estimators}, max_depth={max_depth}"
+                    )
+                    train_gradient_boosting(
+                        X_train, X_test, y_train, y_test,
+                        learning_rate=learning_rate,
+                        n_estimators=n_estimators,
+                        max_depth=max_depth,
+                        max_features=max_features
+                    )
 
     # Entraîner et logger le modèle de Random Forest
     print("\nEntraînement du modèle de Random Forest...")
