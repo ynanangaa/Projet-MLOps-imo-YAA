@@ -1,4 +1,3 @@
-# run.py
 from california_houseprice_prediction.infrastructure import load_and_split_data
 from california_houseprice_prediction.domain import (
     train_and_log_base_model as train_linear_regression,
@@ -22,11 +21,35 @@ def main():
 
     # Entraîner et logger le modèle de Gradient Boosting
     print("\nEntraînement du modèle de Gradient Boosting...")
-    train_gradient_boosting(X_train, X_test, y_train, y_test)
+    for learning_rate in [0.1, 0.2, 0.3, 0.4, 0.5]:
+        for n_estimators in [100, 120]:
+            for max_depth in [3, 5]:
+                print(
+                    f"\nGradient Boosting - learning_rate={learning_rate}, "
+                    f"n_estimators={n_estimators}, max_depth={max_depth}"
+                )
+                train_gradient_boosting(
+                    X_train, X_test, y_train, y_test,
+                    learning_rate=learning_rate,
+                    n_estimators=n_estimators,
+                    max_depth=max_depth
+                )
 
     # Entraîner et logger le modèle de Random Forest
     print("\nEntraînement du modèle de Random Forest...")
-    train_random_forest(X_train, X_test, y_train, y_test)
+    for max_depth in [5, 7, 10]:
+        for max_features in [3, None]:
+            for n_estimators in [100, 120]:
+                print(
+                    f"\nRandom Forest - max_depth={max_depth}, "
+                    f"max_features={max_features}, n_estimators={n_estimators}"
+                )
+                train_random_forest(
+                    X_train, X_test, y_train, y_test,
+                    n_estimators=n_estimators,
+                    max_depth=max_depth,
+                    max_features=max_features
+                )
 
     print("\nTous les modèles ont été entraînés et enregistrés avec succès !")
 
