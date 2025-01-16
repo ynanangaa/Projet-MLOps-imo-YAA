@@ -11,6 +11,8 @@ from california_houseprice_prediction.domain import (
 
 # Fixer le nombre d'estimateurs
 n_estimators=120
+# Fixer le nombre de features
+max_features=None
 
 def main():
     # Charger et diviser les données une seule fois
@@ -25,19 +27,18 @@ def main():
     print("\nEntraînement des modèles de Gradient Boosting...")
     for learning_rate in [0.2, 0.3]:
         for max_depth in [3, 5, None]:
-            for max_features in [3, None]:
-                print(
-                    f"\nGradient Boosting - learning_rate={learning_rate},"
-                    f" n_estimators={n_estimators}, max_depth={max_depth},"
-                    f" max_features={max_features}"
-                )
-                train_gradient_boosting(
-                    X_train, X_test, y_train, y_test,
-                    learning_rate=learning_rate,
-                    n_estimators=n_estimators,
-                    max_depth=max_depth,
-                    max_features=max_features
-                )
+            print(
+                f"\nGradient Boosting - learning_rate={learning_rate},"
+                f" n_estimators={n_estimators}, max_depth={max_depth},"
+                f" max_features={max_features}"
+            )
+            train_gradient_boosting(
+                X_train, X_test, y_train, y_test,
+                learning_rate=learning_rate,
+                n_estimators=n_estimators,
+                max_depth=max_depth,
+                max_features=max_features
+            )
 
     # Entraîner et logger le modèle de Random Forest
     print("\nEntraînement des modèles de Random Forest...")
