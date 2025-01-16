@@ -14,6 +14,7 @@ def train_and_log_base_model(X_train, X_test, y_train, y_test):
         X_train, X_test, y_train, y_test: Données d'entraînement et de test.
     """
 
+    mlflow.set_experiment("california-house")
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         reg = LinearRegression()
