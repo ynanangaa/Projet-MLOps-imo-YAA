@@ -1,16 +1,20 @@
 from california_houseprice_prediction.infrastructure import load_and_split_data
-from mlflow.models import validate_serving_input
+from mlflow.models import validate_serving_input, convert_input_example_to_serving_input
+import pandas as pd
 
+# Charger les données
+X_train, X_test, y_train, y_test = load_and_split_data()
+
+# URI du modèle MLflow
 model_uri = 'runs:/f5b6973bebb14e64a668b69359a7fa74/model'
 
-# The logged model does not contain an input_example.
-# Manually generate a serving payload to verify your model prior to deployment.
-from mlflow.models import convert_input_example_to_serving_input
+# Extraire un exemple d'entrée (par exemple, la première ligne de X_test)
+INPUT_EXAMPLE = X_test.iloc[0:1]  # Prendre la première ligne sous forme de DataFrame
 
-# Define INPUT_EXAMPLE via assignment with your own input example to the model
-# A valid input example is a data instance suitable for pyfunc prediction
-INPUT_EXAMPLE = load_and_split_data()
+# Convertir l'exemple d'entrée en format de service
 serving_payload = convert_input_example_to_serving_input(INPUT_EXAMPLE)
 
-# Validate the serving payload works on the model
+# Valider que le payload fonctionne avec le modèle
 validate_serving_input(model_uri, serving_payload)
+
+print("Validation réussie !")
