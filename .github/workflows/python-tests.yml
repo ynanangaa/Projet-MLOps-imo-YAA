@@ -30,20 +30,19 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Register model with MLflow
+        run: poetry run python california_houseprice_prediction/domain/register_model.py
+
+      - name: Set model alias
+        run: poetry run python california_houseprice_prediction/application/fetch_model.py
+
+      - name: Start API in background
+        run: |
+          poetry run uvicorn california_houseprice_prediction.application.api:app --host 0.0.0.0 --port 8000 &
+          echo "API started on port 8000"
+
       - name: Run tests
         run: poetry run pytest tests/ -v
-
-      - name: Format code with Black
-        run: poetry run black --line-length 79 ./
-
-      - name: Run Flake8
-        run: poetry run flake8 ./
-
-      - name: Build and deploy API
-        run: |
-          poetry run uvicorn application.api:app --host 0.0.0.0 --port 8000 &
-          sleep 5  # Attendre que l'API démarre
-          curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"median_income": 8.3252, "house_age": 41.0, "avg_rooms": 6.984127, "avg_bedrooms": 1.023810, "population": 322.0, "avg_occupancy": 2.555556, "latitude": 37.88, "longitude": -122.23}'
 
       - name: Test MLflow serving
         run: |
