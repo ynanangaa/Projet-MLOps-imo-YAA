@@ -19,7 +19,7 @@ def train_and_log_random_forest_model(
         max_features (str, int, float or None): Nombre de features à considérer pour le split.
     """
   
-    mlflow.set_experiment("california-house")
+    mlflow.set_experiment("california-housing")
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         rf_reg = RandomForestRegressor(
