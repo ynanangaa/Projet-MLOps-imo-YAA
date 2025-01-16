@@ -49,8 +49,8 @@ jobs:
 
       - name: Test MLflow serving
         run: |
-          # Démarrer le serveur MLflow
-          poetry run mlflow models serve -m models:/sk-learn-gradient-boosting-reg@champion -p 5001 &
+          # Démarrer le serveur MLflow sans créer un nouvel environnement
+          poetry run mlflow models serve -m models:/sk-learn-gradient-boosting-reg@champion -p 5001 --no-conda &
           sleep 10  # Attendre que le serveur démarre
 
           # Tester le modèle avec une requête
