@@ -4,7 +4,7 @@ import mlflow.pyfunc
 import numpy as np
 
 # Charger le modèle depuis MLflow
-model_uri = "runs:/149be1fc0e494f1dac6cda2a7e3048a7/model"
+model_uri = "models:/sk-learn-gradient-boosting-reg@champion"
 model = mlflow.pyfunc.load_model(model_uri)
 
 # Initialiser l'application FastAPI
