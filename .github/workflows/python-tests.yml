@@ -30,6 +30,12 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
+      - name: Run experiments and train models
+        run: poetry run python run.py
+
       - name: Register model with MLflow
         run: poetry run python california_houseprice_prediction/domain/register_model.py
 
