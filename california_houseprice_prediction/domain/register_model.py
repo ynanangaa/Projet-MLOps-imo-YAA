@@ -1,7 +1,7 @@
 import mlflow
 from mlflow.tracking import MlflowClient
 
-def get_best_run_id(experiment_name, metric_name="mae", order="ASC"):
+def get_best_run_id(experiment_name="california-housing", metric_name="mae", order="ASC"):
     """
     Récupère le run_id du meilleur modèle en fonction d'une métrique.
 
@@ -27,7 +27,7 @@ def get_best_run_id(experiment_name, metric_name="mae", order="ASC"):
     best_run = runs.iloc[0]
     return best_run.run_id
 
-def register_model(model_name, experiment_name="California Housing"):
+def register_model(model_name, experiment_name="california-housing"):
     """
     Enregistre le meilleur modèle dans le MLflow Model Registry.
 

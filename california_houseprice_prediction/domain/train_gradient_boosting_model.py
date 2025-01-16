@@ -48,6 +48,7 @@ def train_and_log_gradient_boosting_model(
         learning_rate (float): Taux d'apprentissage.
     """
    
+    mlflow.set_experiment("california-house")
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         gb_reg = GradientBoostingRegressor(
