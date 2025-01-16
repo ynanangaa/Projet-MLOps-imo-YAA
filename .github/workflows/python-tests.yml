@@ -39,5 +39,24 @@ jobs:
       - name: Run Flake8
         run: poetry run flake8 ./
 
-      - name: Run main script
-        run: poetry run python run.py
+      - name: Build and deploy API
+        run: |
+          poetry run uvicorn application.api:app --host 0.0.0.0 --port 8000 &
+          sleep 5  # Attendre que l'API démarre
+          curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"median_income": 8.3252, "house_age": 41.0, "avg_rooms": 6.984127, "avg_bedrooms": 1.023810, "population": 322.0, "avg_occupancy": 2.555556, "latitude": 37.88, "longitude": -122.23}'
+
+      - name: Test MLflow serving
+        run: |
+          # Démarrer le serveur MLflow
+          poetry run mlflow models serve -m models:/sk-learn-gradient-boosting-reg@champion -p 5001 &
+          sleep 10  # Attendre que le serveur démarre
+
+          # Tester le modèle avec une requête
+          curl -X POST http://localhost:5001/invocations -H "Content-Type: application/json" -d '{"inputs": [[8.3252, 41.0, 6.984127, 1.023810, 322.0, 2.555556, 37.88, -122.23]]}'
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: "CI/CD pipeline failed :x:"
