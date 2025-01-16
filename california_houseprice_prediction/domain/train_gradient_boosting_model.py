@@ -1,42 +1,56 @@
 import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.metrics import r2_score, root_mean_squared_error, mean_absolute_error
+from sklearn.metrics import (
+    r2_score,
+    root_mean_squared_error,
+    mean_absolute_error,
+)
 from california_houseprice_prediction.infrastructure import load_and_split_data
+
 
 def log_parameters(params):
     """
     Log les paramètres dans MLflow.
-    
+
     Args:
         params (dict): Dictionnaire des paramètres à logger.
     """
     for key, value in params.items():
         mlflow.log_param(key, value)
 
+
 def log_metrics(metrics):
     """
     Log les métriques dans MLflow.
-    
+
     Args:
         metrics (dict): Dictionnaire des métriques à logger.
     """
     for key, value in metrics.items():
         mlflow.log_metric(key, value)
 
+
 def log_model(model, artifact_name):
     """
     Log le modèle dans MLflow.
-    
+
     Args:
         model: Modèle à logger.
         artifact_name (str): Nom de l'artéfact.
     """
     mlflow.sklearn.log_model(model, artifact_name)
 
+
 def train_and_log_gradient_boosting_model(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=5, learning_rate=0.3,
-    max_features=None
+    X_train,
+    X_test,
+    y_train,
+    y_test,
+    n_estimators=100,
+    max_depth=5,
+    learning_rate=0.3,
+    max_features=None,
 ):
     """
     Entraîne un modèle de Gradient Boosting et enregistre les métriques et le modèle avec MLflow.
@@ -47,7 +61,7 @@ def train_and_log_gradient_boosting_model(
         max_depth (int): Profondeur maximale des arbres.
         learning_rate (float): Taux d'apprentissage.
     """
-   
+
     mlflow.set_experiment("california-housing")
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
@@ -56,7 +70,7 @@ def train_and_log_gradient_boosting_model(
             max_depth=max_depth,
             max_features=max_features,
             learning_rate=learning_rate,
-            random_state=42
+            random_state=42,
         )
         gb_reg.fit(X_train, y_train)
 
@@ -65,7 +79,7 @@ def train_and_log_gradient_boosting_model(
             "n_estimators": n_estimators,
             "max_depth": max_depth,
             "learning_rate": learning_rate,
-            "max_features": max_features
+            "max_features": max_features,
         }
         log_parameters(params)
 
@@ -75,13 +89,14 @@ def train_and_log_gradient_boosting_model(
         metrics = {
             "R2": r2_score(y_train, y_train_pred),
             "RMSE": root_mean_squared_error(y_test, y_pred),
-            "MAE": mean_absolute_error(y_test, y_pred)
+            "MAE": mean_absolute_error(y_test, y_pred),
         }
         log_metrics(metrics)
 
         # Enregistrer le modèle
         log_model(gb_reg, "model")
         print("Modèle Gradient Boosting entraîné et enregistré avec succès.")
+
 
 if __name__ == "__main__":
     # Charger et diviser les données

@@ -1,10 +1,14 @@
 import pytest
 from fastapi.testclient import TestClient
-from california_houseprice_prediction.application import app, CaliforniaHousingInput
+from california_houseprice_prediction.application import (
+    app,
+    CaliforniaHousingInput,
+)
 import numpy as np
 
 # Client de test pour FastAPI
 client = TestClient(app)
+
 
 # Test pour la route de prédiction avec des données valides
 def test_predict_valid_input():
@@ -30,6 +34,7 @@ def test_predict_valid_input():
     assert "prediction" in response.json()
     assert isinstance(response.json()["prediction"], float)
 
+
 # Test pour une requête avec des données invalides
 def test_predict_invalid_input():
     # Données d'entrée invalides (par exemple, un champ manquant)
@@ -49,6 +54,7 @@ def test_predict_invalid_input():
 
     # Vérifier que la réponse est une erreur (status code 422)
     assert response.status_code == 422
+
 
 # Test pour une requête avec des types de données incorrects
 def test_predict_invalid_types():

@@ -1,7 +1,10 @@
 import mlflow
 from mlflow.tracking import MlflowClient
 
-def get_best_run_id(experiment_name="california-housing", metric_name="mae", order="ASC"):
+
+def get_best_run_id(
+    experiment_name="california-housing", metric_name="mae", order="ASC"
+):
     """
     Récupère le run_id du meilleur modèle en fonction d'une métrique.
 
@@ -19,13 +22,18 @@ def get_best_run_id(experiment_name="california-housing", metric_name="mae", ord
         raise ValueError(f"Expérience '{experiment_name}' non trouvée.")
 
     # Récupérer les runs de l'expérience
-    runs = mlflow.search_runs(experiment.experiment_id, order_by=[f"metrics.{metric_name} {order}"])
+    runs = mlflow.search_runs(
+        experiment.experiment_id, order_by=[f"metrics.{metric_name} {order}"]
+    )
     if runs.empty:
-        raise ValueError(f"Aucun run trouvé pour l'expérience '{experiment_name}'.")
+        raise ValueError(
+            f"Aucun run trouvé pour l'expérience '{experiment_name}'."
+        )
 
     # Retourner le run_id du meilleur modèle
     best_run = runs.iloc[0]
     return best_run.run_id
+
 
 def register_model(model_name, experiment_name="california-housing"):
     """
@@ -42,15 +50,24 @@ def register_model(model_name, experiment_name="california-housing"):
     # Enregistrer le modèle dans le Registry
     model_uri = f"runs:/{run_id}/model"
     result = mlflow.register_model(model_uri, model_name)
-    print(f"Modèle enregistré avec succès : {result.name} (version {result.version})")
+    print(
+        f"Modèle enregistré avec succès : {result.name} (version {result.version})"
+    )
 
     # Ajouter des tags et des alias
     client = MlflowClient()
-    client.set_model_version_tag(model_name, result.version, "env", "production")
-    client.set_model_version_tag(model_name, result.version, "framework", "sklearn")
+    client.set_model_version_tag(
+        model_name, result.version, "env", "production"
+    )
+    client.set_model_version_tag(
+        model_name, result.version, "framework", "sklearn"
+    )
     client.set_registered_model_alias(model_name, "champion", result.version)
 
-    print(f"Ajout des tags et de l'alias 'champion' pour la version {result.version}.")
+    print(
+        f"Ajout des tags et de l'alias 'champion' pour la version {result.version}."
+    )
+
 
 if __name__ == "__main__":
     # Enregistrer le meilleur modèle

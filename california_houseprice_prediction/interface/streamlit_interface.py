@@ -5,12 +5,20 @@ st.title("House Price Prediction")
 
 with st.form("house_price_form"):
     st.write("Enter housing features:")
-    median_income = st.number_input("Median income (10K $)", key="median_income")
+    median_income = st.number_input(
+        "Median income (10K $)", key="median_income"
+    )
     house_age = st.number_input("Median house age", key="house_age")
-    avg_rooms = st.number_input("Average number of rooms per household", key="avg_rooms")
-    avg_bedrooms = st.number_input("Average number of bedrooms per household", key="avg_bedrooms")
+    avg_rooms = st.number_input(
+        "Average number of rooms per household", key="avg_rooms"
+    )
+    avg_bedrooms = st.number_input(
+        "Average number of bedrooms per household", key="avg_bedrooms"
+    )
     population = st.number_input("Population size", key="population")
-    avg_occupancy = st.number_input("Average number of occupants per house", key="avg_occupancy")
+    avg_occupancy = st.number_input(
+        "Average number of occupants per house", key="avg_occupancy"
+    )
     latitude = st.number_input("Latitude", key="latitude")
     longitude = st.number_input("Longitude", key="longitude")
 
