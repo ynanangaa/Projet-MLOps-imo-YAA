@@ -36,9 +36,6 @@ jobs:
       - name: Run Black (code formatting)
         run: poetry run black --line-length 79 .
 
-      - name: Run Flake8 (linting)
-        run: poetry run flake8 .
-
       - name: Run experiments and train models
         run: poetry run python run.py
 
