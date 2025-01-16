@@ -1,16 +1,24 @@
 import streamlit.testing.v1 as st_test
 
+
 def test_streamlit_interface():
     # Charge l'application Streamlit
-    app = st_test.AppTest.from_file("california_houseprice_prediction/interface/streamlit_interface.py").run()
+    app = st_test.AppTest.from_file(
+        "california_houseprice_prediction/interface/streamlit_interface.py"
+    ).run()
 
     # Assertion 1 : Vérifie que le titre est correct
     assert app.title[0].value == "House Price Prediction"
 
     # Assertion 2 : Vérifie que les textes des zones de saisie sont corrects
-    assert "Median income (10K $)" in app.number_input(key="median_income").label
+    assert (
+        "Median income (10K $)" in app.number_input(key="median_income").label
+    )
     assert "Median house age" in app.number_input(key="house_age").label
-    assert "Average number of rooms per household" in app.number_input(key="avg_rooms").label
+    assert (
+        "Average number of rooms per household"
+        in app.number_input(key="avg_rooms").label
+    )
 
     # Remplit les champs en utilisant les "key"
     app.number_input(key="median_income").set_value(8.3252).run()

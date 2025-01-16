@@ -10,7 +10,8 @@ from california_houseprice_prediction.domain import (
 )
 
 # Fixer le nombre d'estimateurs
-n_estimators=120
+n_estimators = 120
+
 
 def main():
     # Charger et diviser les données une seule fois
@@ -32,11 +33,14 @@ def main():
                     f" max_features={max_features}"
                 )
                 train_gradient_boosting(
-                    X_train, X_test, y_train, y_test,
+                    X_train,
+                    X_test,
+                    y_train,
+                    y_test,
                     learning_rate=learning_rate,
                     n_estimators=n_estimators,
                     max_depth=max_depth,
-                    max_features=max_features
+                    max_features=max_features,
                 )
 
     # Entraîner et logger le modèle de Random Forest
@@ -48,10 +52,13 @@ def main():
                 f"max_features={max_features}, n_estimators={n_estimators}"
             )
             train_random_forest(
-                X_train, X_test, y_train, y_test,
+                X_train,
+                X_test,
+                y_train,
+                y_test,
                 n_estimators=n_estimators,
                 max_depth=max_depth,
-                max_features=max_features
+                max_features=max_features,
             )
 
     print("\nTous les modèles ont été entraînés et enregistrés avec succès !")

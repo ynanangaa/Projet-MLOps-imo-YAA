@@ -2,7 +2,9 @@ import mlflow.pyfunc
 import pandas as pd
 import numpy as np
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
-#from california_houseprice_prediction.infrastructure import load_and_split_data
+
+# from california_houseprice_prediction.infrastructure import load_and_split_data
+
 
 def fetch_model(model_name, alias, X_test, y_test):
     """

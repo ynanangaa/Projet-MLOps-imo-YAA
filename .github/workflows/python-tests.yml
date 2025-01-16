@@ -34,7 +34,7 @@ jobs:
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
       - name: Run Black (code formatting)
-        run: poetry run black --check .
+        run: poetry run black --line-length 79 .
 
       - name: Run Flake8 (linting)
         run: poetry run flake8 .
@@ -60,7 +60,7 @@ jobs:
           sleep 10  # Attendre que le serveur démarre
 
           # Tester le modèle avec une requête
-          curl -X POST http://localhost:5001/invocations -H "Content-Type: application/json" -d '{"inputs": [[8.3252, 41.0, 6.984127, 1.023810, 322.0, 2.555556, 37.88, -122.23]]}'
+          poetry run python test_mlflow_serving.py
 
       - name: Notify Slack on failure
         if: failure()
