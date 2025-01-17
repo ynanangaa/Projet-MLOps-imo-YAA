@@ -2,10 +2,7 @@ import mlflow.pyfunc
 import pandas as pd
 import numpy as np
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
-from california_houseprice_prediction.domain import (
-    REGISTERED_MODEL_NAME,
-    REGISTERED_MODEL_ALIAS,
-)
+from config import REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS
 
 
 def fetch_model(

@@ -9,8 +9,6 @@ from .train_and_log_gradient_boosting_model import (
 from .register_model import (
     register_model,
     get_best_run_id,
-    REGISTERED_MODEL_ALIAS,
-    REGISTERED_MODEL_NAME,
     R2_MIN,
     RMSE_MAX,
     MAE_MAX,
@@ -24,8 +22,7 @@ __all__ = [
     "register_model",
     "train_and_log_base_model",
     "train_and_log_random_forest_model",
-    "train_and_log_gradient_boosting_model" "REGISTERED_MODEL_ALIAS",
-    "REGISTERED_MODEL_NAME",
+    "train_and_log_gradient_boosting_model",
     "R2_MIN",
     "RMSE_MAX",
     "MAE_MAX",
