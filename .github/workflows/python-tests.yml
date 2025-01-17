@@ -48,11 +48,11 @@ jobs:
       - name: Run register_model tests
         run: poetry run python -m unittest tests/domain/test_register_model.py
 
-      - name: Run fetch_model tests
-        run: poetry run python -m unittest tests/application/test_fetch_model.py
-
       - name: Register best model
         run: poetry run python california_houseprice_prediction/domain/register_model.py
+
+      - name: Run fetch_model tests
+        run: poetry run python -m unittest tests/application/test_fetch_model.py
 
       - name: Run API tests
         run: poetry run pytest tests/application/test_api.py -v
