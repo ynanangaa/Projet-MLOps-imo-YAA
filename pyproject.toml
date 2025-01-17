@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "california_houseprice_prediction", from = "."}]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.9.7 || >3.9.7"
+python = "^3.12"
 mlflow = "^2.19.0"
 scikit-learn = "^1.6.1"
 fastapi = "^0.115.6"
