@@ -43,6 +43,8 @@ with st.form("house_price_form"):
 
         if response.status_code == 200:
             prediction = response.json()["prediction"]
+            # L'unité du prix est 100K $, donc on le convertit
+            prediction *= 100000
             st.success(f"The predicted house price is: ${prediction:.3f}")
         else:
             st.error("Failed to get prediction from API")
