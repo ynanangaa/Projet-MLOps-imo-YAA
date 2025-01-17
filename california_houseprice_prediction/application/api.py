@@ -2,9 +2,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import mlflow.pyfunc
 import numpy as np
+from california_houseprice_prediction.domain.register_model import REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS
 
 # Charger le modèle depuis MLflow
-model_uri = "models:/sk-learn-gradient-boosting-reg@champion"
+model_uri = f"models:/{REGISTERED_MODEL_NAME}@{REGISTERED_MODEL_ALIAS}"
 model = mlflow.pyfunc.load_model(model_uri)
 
 # Initialiser l'application FastAPI

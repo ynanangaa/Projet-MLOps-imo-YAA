@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch, MagicMock
 import numpy as np
 from california_houseprice_prediction.application.fetch_model import (
