@@ -4,10 +4,7 @@ import numpy as np
 from california_houseprice_prediction.application.fetch_model import (
     fetch_model,
 )
-from california_houseprice_prediction.domain import (
-    REGISTERED_MODEL_NAME,
-    REGISTERED_MODEL_ALIAS,
-)
+from config import REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS
 
 
 class TestFetchModel(unittest.TestCase):

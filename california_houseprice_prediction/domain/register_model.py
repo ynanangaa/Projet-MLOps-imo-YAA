@@ -1,9 +1,8 @@
 import mlflow
 from mlflow.tracking import MlflowClient
+from config import REGISTERED_MODEL_ALIAS, REGISTERED_MODEL_NAME
 from california_houseprice_prediction.infrastructure import EXPERIMENT_NAME
 
-REGISTERED_MODEL_NAME = "sk-learn-gradient-boosting-reg"
-REGISTERED_MODEL_ALIAS = "champion"
 
 R2_MIN = 0.9
 MAE_MAX = 0.33
