@@ -6,12 +6,11 @@ import pandas as pd
 from california_houseprice_prediction.domain import (
     get_best_run_id,
     register_model,
-    REGISTERED_MODEL_NAME,
-    REGISTERED_MODEL_ALIAS,
     R2_MIN,
     MAE_MAX,
     RMSE_MAX,
 )
+from config import REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS
 from california_houseprice_prediction.infrastructure import EXPERIMENT_NAME
 
 
