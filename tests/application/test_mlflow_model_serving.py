@@ -1,6 +1,9 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from california_houseprice_prediction.application.mlflow_model_serving import mlflow_model_serving
+from california_houseprice_prediction.application.mlflow_model_serving import (
+    mlflow_model_serving,
+)
+
 
 class TestMlflowModelServing(unittest.TestCase):
 
@@ -9,7 +12,9 @@ class TestMlflowModelServing(unittest.TestCase):
         # Simuler une réponse réussie de l'API
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"predictions": [4.5]}  # Exemple de prédiction
+        mock_response.json.return_value = {
+            "predictions": [4.5]
+        }  # Exemple de prédiction
         mock_post.return_value = mock_response
 
         # Appeler la fonction avec des arguments personnalisés
@@ -45,6 +50,7 @@ class TestMlflowModelServing(unittest.TestCase):
 
         # Vérifier que la requête a été envoyée correctement
         mock_post.assert_called_once_with(url, json=data, headers=headers)
+
 
 if __name__ == "__main__":
     unittest.main()

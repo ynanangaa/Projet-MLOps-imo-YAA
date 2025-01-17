@@ -2,6 +2,9 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 
 
+EXPERIMENT_NAME = "california-housing"
+
+
 def load_and_split_data(test_size=0.2, random_state=42):
     """
     Charge les données california housing et les divise en ensembles d'\

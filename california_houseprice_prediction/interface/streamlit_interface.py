@@ -17,7 +17,7 @@ with st.form("house_price_form"):
     )
     population = st.number_input("Population size", key="population")
     avg_occupancy = st.number_input(
-        "Average number of occupants per house", key="avg_occupancy"
+        "Average household occupancy", key="avg_occupancy"
     )
     latitude = st.number_input("Latitude", key="latitude")
     longitude = st.number_input("Longitude", key="longitude")

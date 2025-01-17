@@ -5,7 +5,10 @@ from sklearn.metrics import (
     root_mean_squared_error,
     mean_absolute_error,
 )
-from california_houseprice_prediction.infrastructure import load_and_split_data
+from california_houseprice_prediction.infrastructure import (
+    load_and_split_data,
+    EXPERIMENT_NAME,
+)
 from .log_params_metrics_model import (
     log_parameters,
     log_metrics,
@@ -21,7 +24,7 @@ def train_and_log_base_model(X_train, X_test, y_train, y_test):
         X_train, X_test, y_train, y_test: Données d'entraînement et de test.
     """
 
-    mlflow.set_experiment("california-housing")
+    mlflow.set_experiment(EXPERIMENT_NAME)
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         reg = LinearRegression()

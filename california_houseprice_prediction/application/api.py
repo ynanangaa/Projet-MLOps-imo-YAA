@@ -2,11 +2,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import mlflow.pyfunc
 import numpy as np
-from california_houseprice_prediction.domain.register_model import REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS
+from .fetch_model import fetch_model
 
-# Charger le modèle depuis MLflow
-model_uri = f"models:/{REGISTERED_MODEL_NAME}@{REGISTERED_MODEL_ALIAS}"
-model = mlflow.pyfunc.load_model(model_uri)
+model, _ = fetch_model()
 
 # Initialiser l'application FastAPI
 app = FastAPI()
