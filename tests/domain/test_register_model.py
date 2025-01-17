@@ -64,7 +64,66 @@ class TestRegisterModel(unittest.TestCase):
 
         # Vérification que la fonction retourne None
         self.assertIsNone(best_run_id, "La fonction devrait retourner None lorsqu'aucun run n'est trouvé.")
-    
+
+    @patch(
+        "california_houseprice_prediction.domain.register_model.get_best_run_id"
+    )
+    @patch("mlflow.register_model")
+    @patch("mlflow.tracking.MlflowClient")
+    def test_register_model(
+        self, mock_client, mock_register_model, mock_get_best_run_id
+    ):
+        # Mock du run_id
+        mock_get_best_run_id.return_value = "run_123"
+
+        # Mock de l'enregistrement du modèle
+        mock_result = MagicMock()
+        mock_result.name = REGISTERED_MODEL_NAME
+        mock_result.version = "1"  # Simule la version retournée par mlflow.register_model
+        mock_register_model.return_value = mock_result
+
+        # Mock du client MLflow
+        mock_client_instance = MagicMock()
+        mock_client.return_value = mock_client_instance
+
+        # Simuler les tags retournés par get_model_version_tag
+        mock_client_instance.get_model_version_tag.side_effect = lambda name, version, key: {
+            (REGISTERED_MODEL_NAME, "1", "framework"): "sklearn",  # Tag défini
+        }.get((name, version, key))
+
+        # Appel de la fonction
+        model_name = REGISTERED_MODEL_NAME
+        model_alias = REGISTERED_MODEL_ALIAS
+        register_model(model_name, model_alias)
+
+        # Vérifications
+        mock_get_best_run_id.assert_called_once_with(
+            EXPERIMENT_NAME, R2_MIN, MAE_MAX, RMSE_MAX
+        )
+        mock_register_model.assert_called_once_with(
+            "runs:/run_123/model", model_name
+        )
+
+        # Vérifier que le tag "framework" est correctement défini
+        framework_tag = mock_client_instance.get_model_version_tag(
+            model_name, mock_result.version, "framework"
+        )
+        self.assertEqual(framework_tag, "sklearn")
+
+        # Vérifier que le tag "env" n'est pas défini
+        env_tag = mock_client_instance.get_model_version_tag(
+            model_name, mock_result.version, "env"
+        )
+        self.assertIsNone(env_tag)
+
+        # Définir le comportement de la méthode get_registered_model_alias
+        mock_client_instance.get_registered_model_alias.return_value = "alias_value"
+
+        alias = mock_client_instance.get_registered_model_alias(
+            model_name, model_alias
+        )
+        self.assertEqual(alias, "alias_value")
+
 
 if __name__ == "__main__":
     unittest.main()
