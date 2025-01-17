@@ -19,7 +19,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '>=3.9,<3.9.7 || >3.9.7'
 
       - name: Install Poetry
         run: |
@@ -36,28 +36,50 @@ jobs:
       - name: Run Black (code formatting)
         run: poetry run black --line-length 79 .
 
+      # 1) Test de tests/infrastructure : Pytest
+      - name: Run infrastructure tests
+        run: poetry run pytest tests/infrastructure/ -v
+
+      # 2) Test de tests/domain/test_log_params_metrics_model.py : Unittest
+      - name: Run log_params_metrics_model tests
+        run: poetry run python -m unittest tests/domain/test_log_params_metrics_model.py
+
+      # 3) Lancer run.py : poetry run python run.py
       - name: Run experiments and train models
         run: poetry run python run.py
 
+      # 4) Test de tests/domain/test_register_model.py : unittest
+      - name: Run register_model tests
+        run: poetry run python -m unittest tests/domain/test_register_model.py
+
+      # 5) Test de tests/application/test_fetch_model.py : unittest
+      - name: Run fetch_model tests
+        run: poetry run python -m unittest tests/application/test_fetch_model.py
+
+      # 6) Lancer california_houseprice_prediction/domain/register_model.py : poetry run python …
       - name: Register best model
         run: poetry run python california_houseprice_prediction/domain/register_model.py
 
+      # 7) Test de tests/application/test_api.py : Pytest
+      - name: Run API tests
+        run: poetry run pytest tests/application/test_api.py -v
+
+      # 8) Test de tests/application/test_mlflow_model_serving.py : unittest
+      - name: Run MLflow model serving tests
+        run: poetry run python -m unittest tests/application/test_mlflow_model_serving.py
+
+      # 9) Start API in background step
       - name: Start API in background
         run: |
           poetry run uvicorn california_houseprice_prediction.application.api:app --host 0.0.0.0 --port 8000 &
           echo "API started on port 8000"
 
-      - name: Run tests
-        run: poetry run pytest tests/ -v
-
-      - name: Test MLflow serving
+      # 10) Lancer le MLflow serving : poetry run python california_houseprice_prediction/application/mlflow_model_serving.py
+      - name: Start MLflow serving
         run: |
-          # Démarrer le serveur MLflow sans créer un nouvel environnement
-          poetry run mlflow models serve -m models:/sk-learn-gradient-boosting-reg@champion -p 5001 --no-conda &
+          poetry run mlflow models serve -m models:/sk-learn-best-reg-model@champion -p 5001 --no-conda &
           sleep 10  # Attendre que le serveur démarre
-
-          # Tester le modèle avec une requête
-          poetry run python test_mlflow_serving.py
+          poetry run python california_houseprice_prediction/application/mlflow_model_serving.py
 
       - name: Notify Slack on failure
         if: failure()

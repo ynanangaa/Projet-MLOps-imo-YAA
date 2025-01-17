@@ -5,7 +5,10 @@ from sklearn.metrics import (
     root_mean_squared_error,
     mean_absolute_error,
 )
-from california_houseprice_prediction.infrastructure import load_and_split_data
+from california_houseprice_prediction.infrastructure import (
+    load_and_split_data,
+    EXPERIMENT_NAME,
+)
 from .log_params_metrics_model import (
     log_parameters,
     log_metrics,
@@ -33,7 +36,7 @@ def train_and_log_gradient_boosting_model(
         learning_rate (float): Taux d'apprentissage.
     """
 
-    mlflow.set_experiment("california-housing")
+    mlflow.set_experiment(EXPERIMENT_NAME)
     with mlflow.start_run():
         # Initialiser et entraîner le modèle
         gb_reg = GradientBoostingRegressor(
