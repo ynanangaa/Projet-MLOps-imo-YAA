@@ -53,6 +53,9 @@ jobs:
 
       - name: Run fetch_model tests
         run: poetry run python -m unittest tests/application/test_fetch_model.py
+      
+      - name: Fetch best model
+        run: poetry run python california_houseprice_prediction/application/fetch_model.py
 
       - name: Run API tests
         run: poetry run pytest tests/application/test_api.py -v
