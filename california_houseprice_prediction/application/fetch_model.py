@@ -2,6 +2,7 @@ import mlflow.pyfunc
 import pandas as pd
 import numpy as np
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
+from california_houseprice_prediction.domain.register_model import REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS
 
 # from california_houseprice_prediction.infrastructure import load_and_split_data
 
@@ -43,6 +44,24 @@ def fetch_model(model_name, alias, X_test, y_test):
         "MAE": mean_absolute_error(y_test, y_pred),
     }
 
-    # Afficher les métriques
-    print(f"RMSE: {metrics['RMSE']:.4f}, MAE: {metrics['MAE']:.4f}")
     return model, metrics
+
+
+if __name__ == "__main__":
+    # Charger les données de test (à implémenter ou importer depuis un module)
+    # X_test, y_test = load_and_split_data()  # Exemple d'importation de données
+
+    # Données de test factices pour l'exemple (à remplacer par des données réelles)
+    X_test = np.random.rand(100, 8)  # 100 échantillons, 8 caractéristiques
+    y_test = np.random.rand(100)     # 100 valeurs cibles
+
+    # Utiliser les variables importées pour le nom du modèle et l'alias
+    model_name = REGISTERED_MODEL_NAME
+    alias = REGISTERED_MODEL_ALIAS
+
+    # Charger et évaluer le modèle
+    model, metrics = fetch_model(model_name, alias, X_test, y_test)
+
+    # Afficher les résultats
+    print(f"Modèle évalué : {model_name} (alias: {alias})")
+    print(f"Métriques : [ RMSE: {metrics['RMSE']:.4f}, MAE: {metrics['MAE']:.4f} ]")

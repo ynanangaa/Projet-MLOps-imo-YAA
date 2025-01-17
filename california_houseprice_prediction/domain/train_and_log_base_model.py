@@ -6,7 +6,7 @@ from sklearn.metrics import (
     mean_absolute_error,
 )
 from california_houseprice_prediction.infrastructure import load_and_split_data
-from california_houseprice_prediction.domain.log_params_metrics_model import (
+from .log_params_metrics_model import (
     log_parameters,
     log_metrics,
     log_model,

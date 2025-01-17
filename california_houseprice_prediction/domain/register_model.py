@@ -1,6 +1,8 @@
 import mlflow
 from mlflow.tracking import MlflowClient
 
+REGISTERED_MODEL_NAME = "sk-learn-gradient-boosting-reg"
+REGISTERED_MODEL_ALIAS = "champion"
 
 def get_best_run_id(
     experiment_name="california-housing", metric_name="mae", order="ASC"
@@ -35,7 +37,7 @@ def get_best_run_id(
     return best_run.run_id
 
 
-def register_model(model_name, experiment_name="california-housing"):
+def register_model(model_name, model_alias, experiment_name="california-housing"):
     """
     Enregistre le meilleur modèle dans le MLflow Model Registry.
 
@@ -62,14 +64,13 @@ def register_model(model_name, experiment_name="california-housing"):
     client.set_model_version_tag(
         model_name, result.version, "framework", "sklearn"
     )
-    client.set_registered_model_alias(model_name, "champion", result.version)
+    client.set_registered_model_alias(model_name, model_alias, result.version)
 
     print(
-        f"Ajout des tags et de l'alias 'champion' pour la version {result.version}."
+        f"Ajout des tags et de l'alias {model_alias} pour la version {result.version}."
     )
 
 
 if __name__ == "__main__":
     # Enregistrer le meilleur modèle
-    model_name = "sk-learn-gradient-boosting-reg"
-    register_model(model_name)
+    register_model(REGISTERED_MODEL_NAME, REGISTERED_MODEL_ALIAS)
