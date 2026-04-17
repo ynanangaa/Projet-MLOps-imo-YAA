@@ -1,74 +1,93 @@
-# Projet MLOps - Prédiction des prix des maisons en Californie
+# Projet MLOps - Californie House Prices
 
-Ce projet vise à prédire les prix des maisons en Californie en utilisant des modèles de machine learning. Il est structuré pour faciliter l'expérimentation, l'enregistrement des modèles, et le déploiement via une API.
+Ce dépôt contient une application MLOps conçue pour entraîner, versionner et servir un modèle de prédiction de prix de maisons en Californie. Le projet est structuré pour faciliter le développement local et le déploiement Docker, avec une API FastAPI et une interface Streamlit.
 
 ## Structure du projet
 
-Le projet est organisé en plusieurs modules pour une séparation claire des responsabilités :
+Le code est organisé en modules logiques, pour garder une séparation claire entre entraînement, service et interface.
 
-- **`infrastructure/`** : Charge et divise les données (`load_and_split_data.py`).
-- **`domain/`** : Contient la logique métier, y compris l'entraînement des modèles (`train_and_log_*.py`) et l'enregistrement des modèles (`register_model.py`).
-- **`application/`** : Gère l'API (`api.py`), la récupération des modèles (`fetch_model.py`), et le serving MLflow (`mlflow_model_serving.py`).
-- **`interface/`** : Interface utilisateur avec Streamlit (`streamlit_interface.py`).
+- **`src/`** : logique principale de l’application. C’est la base du package Python.
+- **`ui/`** : interface utilisateur Streamlit et API FastAPI.
+- **`tests/`** : suites de tests unitaires et d’intégration.
+- **`models/`** : contiendra les modèles sauvegardés et/ou extraits par MLflow.
+- **`notebooks/`** : expérimentations et analyses exploratoires.
+- **`mlruns/`** : répertoire MLflow pour les exécutions locales.
+- **`Dockerfile`** : image Docker optimisée pour exécuter l’application avec `uv`.
+- **`compose.yaml`** : orchestration Docker Compose pour les services `api` et `streamlit`.
 
-Le dossier **`tests/`** suit la même structure pour les tests unitaires.
 
-## Configuration
+## Commandes Docker
 
-Le fichier **`config.py`** contient les variables `REGISTERED_MODEL_NAME` et `REGISTERED_MODEL_ALIAS` pour enregistrer les modèles dans MLflow Registry.
+### 1. Construction de l’image
 
-## Installation et utilisation
+```bash
+docker compose build
+```
 
-1. **Cloner le projet** :
-   ```bash
-   git clone https://github.com/ynanangaa/Projet-MLOps-imo-YAA.git
-   cd Projet-MLOps-imo-YAA
-   ```
+### 2. Lancement des services
 
-2. **Configurer l'environnement** :
-   Exécutez **`activate.py`** pour installer Poetry et configurer l'environnement :
-   ```bash
-   python activate.py
-   ```
+```bash
+docker compose up -d
+```
 
-3. **Lancer les expérimentations** :
-   Entraînez et enregistrez les modèles avec :
-   ```bash
-   poetry run python run.py
-   poetry run mlflow ui
-   ```
+Cela démarre :
 
-4. **Enregistrer le meilleur modèle** :
-   ```bash
-   poetry run python california_houseprice_prediction/domain/register_model.py
-   ```
+- `http://localhost:8000` pour l’API
+- `http://localhost:8501` pour l’interface Streamlit
 
-5. **Récupérer le modèle** :
-   ```bash
-   poetry run python california_houseprice_prediction/application/fetch_model.py
-   ```
+### 3. Arrêt
 
-6. **Démarrer l'API** :
-   ```bash
-   poetry run uvicorn california_houseprice_prediction.application.api:app --reload
-   ```
+```bash
+docker compose down
+```
 
-7. **Servir le modèle avec MLflow** :
-   ```bash
-   poetry run mlflow models serve -m "models:/[REGISTERED_MODEL_NAME]@[REGISTERED_MODEL_ALIAS]" -p 5001 --no-conda
-   poetry run python california_houseprice_prediction/application/mlflow_model_serving.py
-   ```
+### 4. Recréer l’environnement proprement
 
-## Tests
+```bash
+docker compose down --volumes
+docker compose up --build
+```
 
-Les tests unitaires sont organisés dans le dossier **`tests/`**, suivant la même structure que le projet principal.
+## Exécution locale sans Docker
 
-- **Tests Pytest** :
-  ```bash
-  poetry run pytest tests/ -v
-  ```
+Si vous préférez rester sur un environnement local Python, le projet utilise `pyproject.toml` et `uv`.
 
-- **Tests Unittest** :
-  ```bash
-  poetry run python -m unittest discover tests/ -v
-  ```
+### Installation des dépendances
+
+```bash
+python -m pip install -U pip
+python -m pip install "uvicorn[standard]" poetry
+poetry install
+```
+
+### Lancer l’API localement
+
+```bash
+uv run uvicorn ui.api:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Lancer l’interface Streamlit localement
+
+```bash
+uv run streamlit run ui/prediction_ui.py --server.address=0.0.0.0
+```
+
+## Points d’entrée et dossiers clés
+
+- **API** : `ui/api.py`
+- **Interface utilisateur** : `ui/prediction_ui.py`
+- **Modèles** : `models/`
+- **Expérimentations MLflow** : `mlruns/`
+
+## Liens utiles
+
+- FastAPI : https://fastapi.tiangolo.com/
+- Streamlit : https://docs.streamlit.io/
+- Docker Compose : https://docs.docker.com/compose/
+- MLflow : https://mlflow.org/docs/latest/index.html
+
+## Notes
+
+- Cette documentation suppose que vous connaissez déjà Docker, Python et les concepts de base de l’architecture MLOps.
+- Le dossier `ui/` est le point d’accès principal pour le service et l’interface utilisateur.
+- `compose.yaml` est le fichier de référence pour l’orchestration Docker de l’application.

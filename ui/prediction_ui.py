@@ -38,13 +38,12 @@ with st.form("house_price_form"):
         }
 
         # Appel à l'API
-        api_url = "http://127.0.0.1:8000/predict"
+        api_url = "http://api:8000/predict"
         response = requests.post(api_url, json=input_data)
 
         if response.status_code == 200:
             prediction = response.json()["prediction"]
             # L'unité du prix est 100K $, donc on le convertit
-            prediction *= 100000
             st.success(f"The predicted house price is: ${prediction:.3f}")
         else:
             st.error("Failed to get prediction from API")
