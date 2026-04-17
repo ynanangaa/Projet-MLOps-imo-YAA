@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from california_houseprice_prediction.application import (
+from ui import (
     app,
     CaliforniaHousingInput,
 )
