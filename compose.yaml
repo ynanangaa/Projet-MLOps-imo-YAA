@@ -1,6 +1,8 @@
-version: "3.9"
-
 services:
+
+  train:
+    build: .
+    command: uv run src/train.py
 
   api:
     build: .
@@ -9,6 +11,8 @@ services:
       - "8000:8000"
     volumes:
       - ./models:/app/models
+    depends_on:
+      - train
 
   streamlit:
     build: .
