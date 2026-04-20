@@ -13,7 +13,7 @@ Le code est organisé en modules logiques, pour garder une séparation claire en
 - **`notebooks/`** : expérimentations et analyses exploratoires.
 - **`mlruns/`** : répertoire MLflow pour les exécutions locales.
 - **`Dockerfile`** : image Docker optimisée pour exécuter l’application avec `uv`.
-- **`compose.yaml`** : orchestration Docker Compose pour les services `api` et `streamlit`.
+- **`compose.yaml`** : orchestration Docker Compose pour les services `train`, `api` et `streamlit`.
 
 
 ## Commandes Docker
@@ -32,6 +32,7 @@ docker compose up -d
 
 Cela démarre :
 
+- Le service `train` qui exécute l’entraînement du modèle
 - `http://localhost:8000` pour l’API
 - `http://localhost:8501` pour l’interface Streamlit
 
@@ -56,8 +57,14 @@ Si vous préférez rester sur un environnement local Python, le projet utilise `
 
 ```bash
 python -m pip install -U pip
-python -m pip install "uvicorn[standard]" poetry
-poetry install
+python -m pip install uv
+uv sync
+```
+
+### Lancer l’entraînement localement
+
+```bash
+uv run src/train.py
 ```
 
 ### Lancer l’API localement
@@ -71,6 +78,16 @@ uv run uvicorn ui.api:app --host 0.0.0.0 --port 8000 --reload
 ```bash
 uv run streamlit run ui/prediction_ui.py --server.address=0.0.0.0
 ```
+
+### Visualiser les expérimentations MLflow
+
+Pour visualiser les expérimentations dans MLflow, lancez l’interface utilisateur :
+
+```bash
+uv run mlflow ui
+```
+
+Cela ouvrira l’interface à `http://localhost:5000`.
 
 ## Points d’entrée et dossiers clés
 
