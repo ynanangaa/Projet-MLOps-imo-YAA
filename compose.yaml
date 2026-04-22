@@ -3,6 +3,8 @@ services:
   train:
     build: .
     command: uv run src/train.py
+    volumes:
+      - ./models:/app/models
 
   api:
     build: .
