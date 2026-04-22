@@ -2,8 +2,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import numpy as np
 import joblib
+import os
+import time
 
 # Charger le modèle au démarrage
+while not os.path.exists("models/model.pkl"):
+    print("Waiting for model...")
+    time.sleep(1)
+    
 model = joblib.load("models/model.pkl")
 
 app = FastAPI()
